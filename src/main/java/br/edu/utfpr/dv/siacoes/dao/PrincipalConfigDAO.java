@@ -5,13 +5,13 @@ public abstract class PrincipalConfigDAO {
   import java.sql.SQLException;
 
 public abstract class PrincipalConfigDAO <T> {
-    public T findByDepartment(int idDepartment) throws SQLException {
+    public final T findByDepartment(int idDepartment) throws SQLException {
         return null;
     }
-    public int save(int idUser, T config) throws SQLException{
+    public final int save(int idUser, T config) throws SQLException{
         return 1;
     }
-    protected T loadObject(ResultSet rs) throws SQLException{
+    protected final T loadObject(ResultSet rs) throws SQLException{
         return null;
     }
   }
