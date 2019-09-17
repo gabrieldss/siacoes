@@ -10,7 +10,7 @@ import br.edu.utfpr.dv.siacoes.model.SigetConfig;
 import br.edu.utfpr.dv.siacoes.model.SigetConfig.AttendanceFrequency;
 import br.edu.utfpr.dv.siacoes.model.SigetConfig.SupervisorFilter;
 
-public class SigetConfigDAO {
+public class SigetConfigDAO extends PrincipalConfigDAO {
 
 	public SigetConfig findByDepartment(int idDepartment) throws SQLException{
 		Connection conn = null;
