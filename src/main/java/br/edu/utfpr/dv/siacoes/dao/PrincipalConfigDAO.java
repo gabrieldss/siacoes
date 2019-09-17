@@ -16,7 +16,7 @@ public abstract class PrincipalConfigDAO <T> {
       
        try{
             conn=ConnectionDAO.getInstance().getConnection();
-            stmt= conn.prepareStatement();
+            stmt=conn.prepareStatement(getFindByDepartmentSelectStatement());
 
             stmt.setInt(1,idDepartment);
             rs=stmt.executeQuery();
@@ -50,15 +50,17 @@ public abstract class PrincipalConfigDAO <T> {
             conn=ConnectionDAO.getInstance().getConnection();
             if(insert)
             {
-                stmt=conn.prepareStatement();
+                stmt=conn.prepareStatement(getSaveInsertStatement());
             }
             else{
-                    stmt=conn.prepareStatement();
+                    stmt=conn.prepareStatement(getSaveUpdateStatement());
                 }
 
             stmt.execute();
-            new UpdateEvent(conn).registerUpdate(idUser,config);
+            setSaveStatementParams(stmt);
 
+            new UpdateEvent(conn).registerUpdate(idUser,config);
+           
             return config.getDepartment().getIdDepartment();
         }
         finally{
@@ -73,5 +75,9 @@ public abstract class PrincipalConfigDAO <T> {
     protected final T loadObject(ResultSet rs) throws SQLException{
         return null;
     }
+    protected abstract void setSaveStatementParams(PreparedStatement stmt);
+    protected abstract String getSaveUpdateStatement();
+    protected abstract String getFindByDepartmentSelectStatement();
+    protected abstract String getSaveInsertStatement();
   }
 }
