@@ -57,7 +57,7 @@ public abstract class PrincipalConfigDAO <T> {
                 }
 
             stmt.execute();
-            setSaveStatementParams(stmt);
+            setSaveStatementParams(stmt,config);
 
             new UpdateEvent(conn).registerUpdate(idUser,config);
            
@@ -73,9 +73,10 @@ public abstract class PrincipalConfigDAO <T> {
       }
   
     protected final T loadObject(ResultSet rs) throws SQLException{
-        return null;
     }
-    protected abstract void setSaveStatementParams(PreparedStatement stmt);
+    protected abstract T loadObject(ResultSet rs) throws SQLException;
+    
+    protected abstract void setSaveStatementParams(PreparedStatement stmt,T config) throws SQLException;
     protected abstract String getSaveUpdateStatement();
     protected abstract String getFindByDepartmentSelectStatement();
     protected abstract String getSaveInsertStatement();
